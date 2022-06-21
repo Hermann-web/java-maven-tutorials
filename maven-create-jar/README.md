@@ -3,6 +3,12 @@ Use Maven build tool, to create a single executable Jar, and how to deal with th
 
 Project Link - https://www.favtuts.com/how-to-create-a-jar-file-with-maven/
 
+# Maven command to create project
+
+```
+$ mvn archetype:generate -DgroupId=com.favtuts.core.utils -DartifactId=dateUtils -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false
+```
+
 # How to run this project?
 
 ## 1.1 Build JAR file and dependency-jars
