@@ -12,8 +12,8 @@
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   
   <script>
-      var RESULT = "";
-      var INPUTS = "";
+      var RESULT = null;
+      var INPUTS = null;
   </script>  
   
   <script>
@@ -42,6 +42,8 @@
             console.log("Server response:", response);
             document.querySelector("#result").textContent = response.result;
             document.querySelector("#nb_texts").textContent = response.nb_texts;
+            document.querySelector("#laps").textContent = response.laps;
+            document.querySelector("#match").textContent = response.match;
             INPUTS = response.texts;
             RESULT = response.result;
           },
@@ -57,20 +59,26 @@
   <script>
     // Wait for the DOM to be ready
     document.addEventListener("DOMContentLoaded", function() {
+      
       // Find the form element
       const saveBtn = document.querySelector("#save-btn");
 
       // Listen for the form's "submit" event
       saveBtn.addEventListener('click', function(event) {
+        if(INPUTS===null){
+        alert("submit the inputs first !");
+        return;
+      }
         // Prevent the default form submission behavior
         event.preventDefault();
 
         $.ajax({
           type: "POST",
-          url: "simple/save",
-          data: { result: JSON.stringify(RESULT),texts: JSON.stringify(INPUTS) },
+          url: "simple",
+          data: { save: 1, result: RESULT,texts: JSON.stringify(INPUTS) },
           success: function(response) {
             console.log("Server response:", response);
+            alert('result saved !');
           },
           error: function(jqXHR, textStatus, errorThrown) {
             console.error("AJAX error:", textStatus, errorThrown);
@@ -83,7 +91,7 @@
 
 <body>
   <div class="container">
-    <h1>My App</h1>
+    <h1>Text Reconstructor App</h1>
     <form id="contact" method="post">
       <div><h3>Enter some texts</h3></div>
       <div class="row" id="my-inputs">
@@ -95,9 +103,11 @@
       <div><input type="submit" value="Submit"></div>
     </form>
     <div>
-      <h3>Combined text</h3>
-      <p id="result"></p>
-      <p id="nb_texts"></p>
+      <h3>Solution</h3>
+      <p>Nb_texts :<span id="nb_texts"></span></p>
+      <p>Match :<span id="match"></span></p>
+      <p>Laps Time :<span id="laps"></span></p>
+      <p>Combined text :<span id="result"></span></p>
     </div>
     <div>
       <button id="add-btn" type="button" class="btn btn-primary">Add text</button>

@@ -18,3 +18,8 @@ $ mvn jetty:run
 
 Access:  http://localhost:8080/maven-cli-simple-webapp/simple
 ```
+
+
+# docs 
+- https://zetcode.com/java/jetty/servlets/
+- https://www.favtuts.com/create-a-simple-maven-web-application-using-command-line/

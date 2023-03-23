@@ -68,11 +68,10 @@ public class SimpleServlet extends HttpServlet {
 		response.setStatus(HttpServletResponse.SC_OK);
 
 		// Get the list of texts from the request parameters
-		String yyy = request.getParameterNames().toString();
-		System.out.println("yyy");
-		System.out.println(yyy);
 		Gson gson = new Gson();
 		String[] textArray = gson.fromJson(request.getParameter("texts"), String[].class);
+		String save = request.getParameter("save");
+
 		System.out.println("textArray");
 		System.out.println(textArray);
 		if (textArray == null) {
@@ -98,14 +97,34 @@ public class SimpleServlet extends HttpServlet {
 		System.out.println(texts.get(1));
 
 		int length = texts.size();
-		String result = TextReconstructor.reconstructText(texts.get(0), texts.get(1));
+		int saved = 0;
+		Map<String, String> result = TextReconstructor.reconstructText(texts);
 
 		Map<String, Object> dict = new HashMap<>();
 
+		
+		if(save!=null){
+			System.out.println("Hola Mongo");
+			MongoClient mongoClient = MongoConnectionManager.initConnection();
+			MongoDatabase DB = mongoClient.getDatabase("testbd");
+			MongoCollection<Document> collection = DB.getCollection("test");
+            System.out.println("Saving results ...");
+            Document document = new Document();
+            document.append("inputs", texts);
+            document.append("result", result.get("res"));
+            collection.insertOne(document);
+            System.out.println("Saved");
+			saved = 1;
+		}
+		
+
         dict.put("texts", texts);
 		dict.put("nb_texts", length);
-        dict.put("result", result);
-		
+        dict.put("result", result.get("res"));
+		dict.put("laps", result.get("laps"));
+		dict.put("match", result.get("match"));
+		dict.put("saved", saved);
+
 		// Convert the list of texts to a JSON string using Gson
 		String json = gson.toJson(dict);
 
