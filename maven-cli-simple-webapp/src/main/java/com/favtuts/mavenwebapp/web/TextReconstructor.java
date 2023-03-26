@@ -6,6 +6,24 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+// 0. get a list of texts
+// 1. Compute Timestamp to measure the duration of the reconstruction
+// 2. tokenisation::tokenizer
+// 	- check if a space is present in one of the texts 
+// 	- transform each text into a list of token (words or character)
+// 3. searchClusters::searchClusters
+// 	- iterate over pair of lists (A,B)
+// 		- Lists are merged if the first element of one contains the last element of the other
+// 		- Lists are merged if the ending (subset) of one is the beginning of the other
+// 		- Sublists are removed, and new lists are created by concatenating two lists.
+// 		- The searchClusters method is called recursively until no more merges or removals are possible.
+// 	- The final list of clusters is returned.
+// 4.isMatch: If there is only one list of tokens, there is a match. Otherwise, there is no match 
+// 5. Joins the tokens in each list with the separator and adds the resulting strings to a final list
+// 6. Compute Timestamp to measure the duration of the reconstruction 
+// 7. return the duration of the reconstruction, the final final reconstructed text, the match status
+
+
 public class TextReconstructor {
 
     // public static void main(String[] args) {

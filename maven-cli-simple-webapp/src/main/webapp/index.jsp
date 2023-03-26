@@ -89,10 +89,107 @@
   </script>
 </head>
 
+
+<style>
+  body {
+    background-color: #F5F5F5;
+    font-family: Arial, sans-serif;
+  }
+  h1 {
+    color: #333;
+    font-size: 48px;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 50px;
+    margin-bottom: 30px;
+  }
+  .main-div {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+  }
+  h3 {
+    color: #333;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  input[type=text],.div-res {
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    background-color: #F5F5F5;
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+    word-wrap: break-all;
+  }
+  input[type=submit] {
+    padding: 10px 20px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  input[type=submit]:hover {
+    background-color: #555;
+  }
+  #my-inputs {
+    margin-bottom: 20px;
+  }
+  #add-btn, #save-btn {
+    padding: 10px 20px;
+    margin-right: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  #add-btn:hover, #save-btn:hover {
+    background-color: #555;
+    color: #fff;
+  }
+  #add-btn {
+    background-color: #333;
+    color: #fff;
+  }
+  #save-btn {
+    background-color: #28A745;
+    color: #fff;
+  }
+  #result {
+    font-size: 21px;
+    font-weight: bold;
+    color: #28A745;
+    text-align: center;
+  }
+  .div-res{
+    margin: 5px;
+    padding: 5px;
+    font-size: 33px;
+  }
+  .main-div  span{
+    color: blue;
+  }
+  .my-div-btn {
+    display: flex;
+    align-content: space-around;
+  }
+  .my-div-btn>button{
+    margin-left: 15px;
+    margin-right: 15px;
+  }
+  .div-res div {
+    width: max-content;
+    margin: auto;
+  }
+</style>
+
 <body>
-  <div class="container">
+  <div class="container" style="width: 50%;">
     <h1>Text Reconstructor App</h1>
-    <form id="contact" method="post">
+    <form id="contact" class="main-div" method="post">
       <div><h3>Enter some texts</h3></div>
       <div class="row" id="my-inputs">
         <!-- Iterate over the list and put each string into a span element -->
@@ -100,19 +197,24 @@
           <div><label for="text${status.index}">Text ${status.index + 1}</label><input type="text" class="form-control" name="text${status.index}" id="text${status.index}" placeholder="text..." value="${text}"></div>
         </c:forEach>
       </div>
-      <div><input type="submit" value="Submit"></div>
+      <div class="my-div-btn">
+        <button id="add-btn" type="button" class="btn btn-primary">Add text</button>
+        <input type="submit" value="Submit">
+        <button id="save-btn" type="button" class="btn btn-primary">Save results</button>
+      </div>
     </form>
-    <div>
+    <div class="main-div" style="font-family: Arial, sans-serif;">
       <h3>Solution</h3>
-      <p>Nb_texts :<span id="nb_texts"></span></p>
-      <p>Match :<span id="match"></span></p>
-      <p>Laps Time :<span id="laps"></span></p>
-      <p>Combined text :<span id="result"></span></p>
+      <p><strong>Nb_texts</strong> :<span id="nb_texts"></span></p>
+      <p><strong>Match</strong> :<span id="match"></span></p>
+      <p><strong>Laps Time</strong> :<span id="laps"></span></p>
+      <strong><p>Combined text</p></strong>
+      <div class="div-res" style="background-color: #f2f2f2;">
+        <div><span id="result"></span></div>
+      </div>
+      
     </div>
-    <div>
-      <button id="add-btn" type="button" class="btn btn-primary">Add text</button>
-      <button id="save-btn" type="button" class="btn btn-primary">Save results</button>
-    </div>
+
   </div>
 </body>
 
